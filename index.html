@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Meta tags-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <!-- Custom CSS files -->
+    <style>
+        /* Sticky footer styles
+        -------------------------------------------------- */
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            margin-bottom: 60px; /* Margin bottom by footer height */
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px; /* Set the fixed height of the footer here */
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #f5f5f5;
+        }
+    </style>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Bootstrap JS files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <!-- reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <title>Multi-URL shortener</title>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark static-top" style="background-color: #003399;">
+        <div class="container">
+            <a class="navbar-brand" href="https://multiurl.sftg.io">Multi-URL</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <script src="https://scripts.gunner.online/themeswitcher.js"></script>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="mt-3">Multi-URL</h1>
+                <p class="lead">Shorten multiple URLs into one short link.</p>
+                <!--textarea class="form-control my-3" rows=10 id="input"></textarea-->
+                <form method="POST" action="add.php">
+                    <div class="row">
+                        <div class="form-group col">
+                        <input type="text" class="form-control" name="pagetitle" placeholder="Page title" required>
+                        </div>
+                        </div>
+                    <div class="row" id="lastrow" rownum=1>
+                        <div class="form-group col-lg">
+                            <input type="text" class="form-control" name="url[]" placeholder="URL 1" required>
+                        </div>
+                        <div class="form-group col-lg">
+                            <input type="text" class="form-control" name="name[]" placeholder="Name 1 (optional)">
+                        </div>
+                        <div class="form-group">
+                            <button id="lastbutton" type="button" class="btn btn-secondary" onClick="newRow()">+</button>
+                            </div>
+                    </div>
+                    <div class="g-recaptcha" data-sitekey="6Lf-scIUAAAAAF68LzMCXUdHWaqAft2O8tnzy_tb" data-theme="dark"></div>
+                    <button type="submit" class="btn btn-primary my-3">Generate</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted"><a href="LICENSE" class="text-secondary">MIT License</a> | <a href="https://github.com/Gunner237/Multi-URL" class="text-secondary">View Source</a> | Sebastian Gunner (<a href="https://github.com/Gunner237">@Gunner237</a>)</span>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+    <script>
+
+        function newRow(){
+            rownum = $("#lastrow").attr("rownum");
+            newrownum = parseInt(rownum) + 1;
+            newrow = `<div class="row" id="newrow" rownum=`+newrownum+`>
+                        <div class="form-group col-lg">
+                            <input type="text" class="form-control" name="url[]" placeholder="URL `+newrownum+`">
+                        </div>
+                        <div class="form-group col-lg">
+                            <input type="text" class="form-control" name="name[]" placeholder="Name `+newrownum+` (optional)">
+                        </div>
+                        <div class="form-group">
+                            <button id="newbutton" type="button" class="btn btn-secondary" onClick="newRow()">+</button>
+                            </div>
+                    </div>`;
+            $("#lastrow").after(newrow);
+            $("#lastrow").attr("id","oldrow");
+            $("#newrow").attr("id","lastrow");
+            $("#lastbutton").hide();
+            $("#lastbutton").attr("id","hiddenbutton");
+            $("#newbutton").attr("id","lastbutton");
+        }
+
+    </script>
+</body>
+</html>
