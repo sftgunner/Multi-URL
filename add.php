@@ -42,7 +42,7 @@ $data = array('secret' => getenv('RECAPTCHA_SECRET_MULTIURL'), 'response' => $ca
         
         //Sanatise URLs
         foreach ($urlsarr as $cururl){
-            $sanurl = filter_var($url, FILTER_SANITIZE_URL);
+            $sanurl = filter_var($cururl, FILTER_SANITIZE_URL);
             if (!filter_var($sanurl, FILTER_VALIDATE_URL) === false) {
                 //All good
                 array_push($urlsarr_sanatized,$sanurl);
