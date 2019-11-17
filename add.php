@@ -113,7 +113,7 @@ $data = array('secret' => getenv('RECAPTCHA_SECRET_MULTIURL'), 'response' => $ca
         }
     }
     else{
-        header("Location: https://multiurl.sftg.io/?error=captchaFailure");
+        header("Location: https://multiurl.sftg.io/?error=$result");
         die();
     }
     
