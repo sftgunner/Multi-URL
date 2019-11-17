@@ -1,5 +1,9 @@
 <?php
 include "customfunctionlibrary.php";
+if (!isset($_POST['g-recaptcha-response'])){
+    header("Location: https://multiurl.sftg.io/?error=noCaptcha");
+    die();
+}
 $captcharesponse = $_POST['g-recaptcha-response'];
 
 $url = 'https://www.google.com/recaptcha/api/siteverify';
