@@ -15,7 +15,10 @@ $data = array('secret' => getenv('RECAPTCHA_SECRET_MULTIURL'), 'response' => $ca
         );
         $context  = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
-    if ($result === FALSE) { /* Handle error */ }
+    if ($result === FALSE) { 
+        header("Location: https://multiurl.sftg.io/?error=captchaError");
+        die();
+    }
     
     $captcharesult = json_decode($result,1);
     
