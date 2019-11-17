@@ -68,7 +68,7 @@
                     if ($title == ""){
                         $title = $link;
                     }
-                    echo '<a href="'.$link.'">'.$title.' <i class="fas fa-external-link-alt"></i></a><br>';
+                    echo '<a href="'.$link.'" target="_blank">'.$title.' <i class="fas fa-external-link-alt"></i></a><br>';
                 }
                 ?>
             </div>
