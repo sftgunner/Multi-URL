@@ -111,9 +111,9 @@ $data = array('secret' => getenv('RECAPTCHA_SECRET_MULTIURL'), 'response' => $ca
             
             // Fetch all
             if (mysqli_query($mudbconn, $uploaddataSQL)) {
-                return "New record created successfully";
+                $uploadresult = "New record created successfully";
             } else {
-                return "Error: " . $uploaddataSQL . "---" . mysqli_error($mudbconn);
+                $uploadresult = "Error: " . $uploaddataSQL . "---" . mysqli_error($mudbconn);
             }
             
             //Close DB Connection
