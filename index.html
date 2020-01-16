@@ -35,7 +35,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <!-- reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=captchaLoadedCallback" async defer></script>
     <title>Multi-URL shortener</title>
 </head>
 <body>
@@ -63,9 +63,9 @@
                 <form method="POST" action="add.php">
                     <div class="row">
                         <div class="form-group col">
-                        <input type="text" class="form-control" name="pagetitle" placeholder="Page title" required>
+                            <input type="text" class="form-control" name="pagetitle" placeholder="Page title" required>
                         </div>
-                        </div>
+                    </div>
                     <div class="row" id="lastrow" rownum=1>
                         <div class="form-group col-lg">
                             <input type="text" class="form-control" name="url[]" placeholder="URL 1" required>
@@ -75,9 +75,9 @@
                         </div>
                         <div class="form-group">
                             <button id="lastbutton" type="button" class="btn btn-secondary" onClick="newRow()">+</button>
-                            </div>
+                        </div>
                     </div>
-                    <div class="g-recaptcha" data-sitekey="6Lf-scIUAAAAAF68LzMCXUdHWaqAft2O8tnzy_tb" data-theme="dark"></div>
+                    <div class="g-recaptcha" data-sitekey="6Lf-scIUAAAAAF68LzMCXUdHWaqAft2O8tnzy_tb" data-theme="light"></div>
                     <button type="submit" class="btn btn-primary my-3">Generate</button>
                 </form>
             </div>
@@ -90,7 +90,7 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
     <script>
-
+        
         function newRow(){
             rownum = $("#lastrow").attr("rownum");
             newrownum = parseInt(rownum) + 1;
@@ -103,16 +103,16 @@
                 inputclass = "";
             }
             newrow = `<div class="row" id="newrow" rownum=`+newrownum+`>
-                        <div class="form-group col-lg">
-                            <input type="text" class="form-control`+inputclass+`" name="url[]" placeholder="URL `+newrownum+`">
-                        </div>
-                        <div class="form-group col-lg">
-                            <input type="text" class="form-control`+inputclass+`" name="name[]" placeholder="Name `+newrownum+` (optional)">
-                        </div>
-                        <div class="form-group">
-                            <button id="newbutton" type="button`+inputclass+`" class="btn btn-secondary" onClick="newRow()">+</button>
-                            </div>
-                    </div>`;
+                <div class="form-group col-lg">
+                    <input type="text" class="form-control`+inputclass+`" name="url[]" placeholder="URL `+newrownum+`">
+                </div>
+                <div class="form-group col-lg">
+                    <input type="text" class="form-control`+inputclass+`" name="name[]" placeholder="Name `+newrownum+` (optional)">
+                </div>
+                <div class="form-group">
+                    <button id="newbutton" type="button`+inputclass+`" class="btn btn-secondary" onClick="newRow()">+</button>
+                </div>
+            </div>`;
             $("#lastrow").after(newrow);
             $("#lastrow").attr("id","oldrow");
             $("#newrow").attr("id","lastrow");
@@ -120,7 +120,18 @@
             $("#lastbutton").attr("id","hiddenbutton");
             $("#newbutton").attr("id","lastbutton");
         }
-
+        function captchaLoadedCallback(){
+            //If initially dark, ensure captcha is dark
+            if (localStorage.getItem("theme") == "dark"){
+                if (localStorage.getItem("theme-selector") == "manual"){
+                    darkmode(true);
+                }
+                else{
+                    darkmode(false);
+                }
+            }
+        }
+        
     </script>
 </body>
 </html>
