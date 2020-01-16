@@ -80,7 +80,7 @@ $data = array('secret' => getenv('RECAPTCHA_SECRET_MULTIURL'), 'response' => $ca
                 
                 // prepare and bind
                 $stmt = $mudbconn->prepare("SELECT id FROM multiurl WHERE shortlink = ?");
-                $stmt->bind_param("s", mysqli_real_escape_string($newshortlink,$mudbconn));
+                $stmt->bind_param("s", mysqli_real_escape_string($mudbconn,$newshortlink));
                 
                 $getinfoResult = $stmt->execute();
                 $mysqlResult = $stmt->get_result();
@@ -106,13 +106,13 @@ $data = array('secret' => getenv('RECAPTCHA_SECRET_MULTIURL'), 'response' => $ca
             $item = 'shortlink,count,urls,title';
             $values = "'".$newshortlink."',0,'".$urlsjson."','".$title."'";
 
-            $uploaddataSQL = "INSERT INTO ".mysqli_real_escape_string($mudbcon,$table)." (".$item.") VALUES (".$values.")";
+            $uploaddataSQL = "INSERT INTO ".mysqli_real_escape_string($mudbconn,$table)." (".$item.") VALUES (".$values.")";
             
             // Fetch all
-            if (mysqli_query($mudbcon, $uploaddataSQL)) {
+            if (mysqli_query($mudbconn, $uploaddataSQL)) {
                 return "New record created successfully";
             } else {
-                return "Error: " . $uploaddataSQL . "---" . mysqli_error($gundbcon);
+                return "Error: " . $uploaddataSQL . "---" . mysqli_error($mudbconn);
             }
             
             //Close DB Connection
