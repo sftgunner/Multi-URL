@@ -59,6 +59,7 @@
             <div class="col-lg-12">
                 <h1 class="mt-3">Multi-URL</h1>
                 <p class="lead">Shorten multiple URLs into one short link.</p>
+                <div class="alert alert-danger" role="alert" id="errorbar" style="display:none;">An unknown error occurred (-1)</div>
                 <!--textarea class="form-control my-3" rows=10 id="input"></textarea-->
                 <form method="POST" action="add.php">
                     <div class="row">
@@ -132,6 +133,24 @@
             }
         }
         
+        //Get any error parameters from the querystring
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorparam = urlParams.get('error');
+        errorobject = {
+            "test":"this is a test response",
+            "invalidURL":"One or more of the URLs provided was invalid.",
+            "captchaError":"There was an error with the reCaptcha (I am not a robot checkbox). Please ensure you have filled it out correctly."
+        }
+        if (errorparam !== null){
+            document.getElementById("errorbar").style.display = "block";
+            
+            if (errorparam in errorobject){
+                document.getElementById("errorbar").innerHTML = errorobject[errorparam];
+            }
+            else{
+                document.getElementById("errorbar").innerHTML = "An unknown error occurred ("+errorparam+")";
+            }
+        }
     </script>
 </body>
 </html>
