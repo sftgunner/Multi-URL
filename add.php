@@ -80,7 +80,8 @@ $data = array('secret' => getenv('RECAPTCHA_SECRET_MULTIURL'), 'response' => $ca
                 
                 // prepare and bind
                 $stmt = $mudbconn->prepare("SELECT id FROM multiurl WHERE shortlink = ?");
-                $stmt->bind_param("s", mysqli_real_escape_string($mudbconn,$newshortlink));
+                $escapedshortlink = mysqli_real_escape_string($mudbconn,$newshortlink);
+                $stmt->bind_param("s", $escapedshortlink);
                 
                 $getinfoResult = $stmt->execute();
                 $mysqlResult = $stmt->get_result();
