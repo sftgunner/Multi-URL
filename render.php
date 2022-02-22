@@ -108,7 +108,7 @@ clipboard.on('error', function(e) {
         </script>
     <footer class="footer">
             <div class="container">
-                <span class="text-muted"><a href="LICENSE" class="text-secondary">MIT License</a> | <a href="https://github.com/Gunner237/Multi-URL" class="text-secondary">View Source</a> | Sebastian Gunner (<a href="https://github.com/Gunner237">@Gunner237</a>)</span>
+                <span class="text-muted"><a href="LICENSE" class="text-secondary">MIT License</a> | <a href="https://github.com/sftgunner/Multi-URL" class="text-secondary">View Source</a> | Sebastian Gunner (<a href="https://github.com/sftgunner">@sftgunner</a>)</span>
             </div>
         </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
