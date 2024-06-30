@@ -20,9 +20,15 @@ if ($results == 'No results'){
 }
 else{
 
+    if ($dbaccess == false){
+        echo $results;
+    }
+    else{
+
     $title = $results[0][0];
     $links = json_decode($results[0][1],true);
     
     include 'render.php';
+    }
 }
 ?>
