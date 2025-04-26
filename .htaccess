@@ -1,3 +1,5 @@
+RewriteRule ^.*\.(yml|sql|gitignore|gitattributes|gitignore|md)$ - [F,L,NC]
+RewriteRule (Dockerfile|LICENSE) - [F,L,NC]
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
